@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_ingredient">
+
+    <fragment
+        android:id="@+id/navigation_ingredient"
+        android:name="com.estimewa.myapp.ui.ingredients.IngredientFragment"
+        android:label="@string/bahan"
+        tools:layout="@layout/fragment_ingredient" >
+        <action
+            android:id="@+id/action_navigation_ingredient_to_navigation_ingredient_detail"
+            app:destination="@id/navigation_ingredient_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_ingredient_detail"
+        android:name="com.estimewa.myapp.ui.ingredients.IngredientDetailFragment"
+        android:label="@string/ingredient_detail"
+        tools:layout="@layout/ingredient_detail_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_recipe"
+        android:name="com.estimewa.myapp.ui.recipe.RecipeFragment"
+        android:label="@string/resep"
+        tools:layout="@layout/fragment_recipe" >
+        <action
+            android:id="@+id/action_navigation_recipe_to_navigation_recipe_detail"
+            app:destination="@id/navigation_recipe_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_recipe_detail"
+        android:name="com.estimewa.myapp.ui.recipe.RecipeDetailFragment"
+        android:label="@string/detail_resep"
+        tools:layout="@layout/recipe_detail_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_shopping"
+        android:name="com.estimewa.myapp.ui.shopping.ShoppingFragment"
+        android:label="@string/belanja"
+        tools:layout="@layout/fragment_shopping" >
+        <action
+            android:id="@+id/action_navigation_shopping_to_navigation_shopping_detail"
+            app:destination="@id/navigation_shopping_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_shopping_detail"
+        android:name="com.estimewa.myapp.ui.shopping.ShoppingDetailFragment"
+        android:label="@string/detail_belanja"
+        tools:layout="@layout/shopping_detail_fragment" />
+</navigation>

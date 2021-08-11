@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_ingredient"
+        android:icon="@drawable/ic_baseline_eco_24"
+        android:title="@string/bahan" />
+
+    <item
+        android:id="@+id/navigation_recipe"
+        android:icon="@drawable/ic_recipe_selector"
+        android:title="@string/resep" />
+
+    <item
+        android:id="@+id/navigation_shopping"
+        android:icon="@drawable/ic_baseline_shopping_basket_24"
+        android:title="@string/belanja" />
+
+</menu>

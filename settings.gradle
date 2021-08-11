@@ -1,0 +1,3 @@
+rootProject.name = "Estimewa"
+include ':app'
+include ':core'
