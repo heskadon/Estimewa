@@ -28,7 +28,7 @@ class RecipeRepository @Inject constructor(
                     RecipeDataMapper.mapEntitiesToDomain(it)
                 }
 
-            override fun shouldFetch(data: List<Recipe>?): Boolean = false
+            override fun shouldFetch(data: List<Recipe>?): Boolean = data.isNullOrEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<ListRecipeResponse>>> =
                 remoteDataSource.getPrePopulateRecipe()

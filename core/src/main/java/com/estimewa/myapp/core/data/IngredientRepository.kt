@@ -1,5 +1,6 @@
 package com.estimewa.myapp.core.data
 
+import androidx.paging.*
 import com.estimewa.myapp.core.data.source.local.LocalDataSource
 import com.estimewa.myapp.core.data.source.remote.RemoteDataSource
 import com.estimewa.myapp.core.data.source.remote.network.ApiResponse
@@ -28,7 +29,8 @@ class IngredientRepository @Inject constructor(
                 }
             }
 
-            override fun shouldFetch(data: List<Ingredient>?): Boolean = data.isNullOrEmpty()
+            override fun shouldFetch(data: List<Ingredient>?): Boolean = /*data.isNullOrEmpty()*/
+                false
 
             override suspend fun createCall(): Flow<ApiResponse<List<ListIngredientsResponse>>> =
                 remoteDataSource.getIngredientDummy()
@@ -61,4 +63,14 @@ class IngredientRepository @Inject constructor(
         }
     }
 
+    override fun getPagedIngredients(): Flow<PagingData<Ingredient>> {
+        return Pager(config = PagingConfig(5)) {
+            localDataSource.getIngredientPaging()
+        }
+            .flow.map {
+                it.map { e ->
+                    IngredientsDataMapper.mapEntityToDomain(e)
+                }
+            }
+    }
 }

@@ -4,6 +4,7 @@ import com.estimewa.myapp.core.data.source.remote.network.ApiResponse
 import com.estimewa.myapp.core.data.source.remote.network.ApiService
 import com.estimewa.myapp.core.data.source.remote.response.ListIngredientsResponse
 import com.estimewa.myapp.core.data.source.remote.response.ListRecipeResponse
+import com.estimewa.myapp.core.utils.DummyDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -31,21 +32,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService){
 
     suspend fun getIngredientDummy(): Flow<ApiResponse<List<ListIngredientsResponse>>> {
         return flow {
-            val dummy = listOf(ListIngredientsResponse(
-                id = "alksjd",
-                name = "Tomato",
-                price = "3000",
-                unit = "kg",
-                amount = 1,
-                seller = "Toko Baru"
-            ), ListIngredientsResponse(
-                id = "12dsfd",
-                name = "Bawang Merah",
-                price = "43000",
-                unit = "kg",
-                amount = 1,
-                seller = "Toko Baru"
-            ))
+            val dummy = DummyDataSource.getDummyIngredient()
 
             emit(ApiResponse.Success(dummy))
         }.flowOn(Dispatchers.IO)
@@ -53,13 +40,17 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService){
 
     fun getPrePopulateRecipe(): Flow<ApiResponse<List<ListRecipeResponse>>> {
         return flow {
-            val dummy = listOf(ListRecipeResponse(
-                id = 200,
-                name = "Rendang Sapi",
-                unit = "kg",
-                amount = 1,
-            ))
-            emit(ApiResponse.Success(dummy))
+            val dummyData = ArrayList<ListRecipeResponse>()
+
+            for (i in 1..50){
+                dummyData.add(ListRecipeResponse(
+                    id = i.toString(),
+                    name = "Birthday Cake $i",
+                    unit = "pcs",
+                    amount = 2,
+                ))
+            }
+            emit(ApiResponse.Success(dummyData))
         }.flowOn(Dispatchers.IO)
     }
 

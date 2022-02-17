@@ -15,8 +15,8 @@ buildscript {
 
         glide_version = "4.11.0"
 
-        hilt_jetpack_version = '1.0.0-alpha03'
-        hilt_version = '2.36'
+        hilt_jetpack_version = '1.0.0'
+        hilt_version = '2.40.5'
 
         junit_version = "4.13.1"
 
@@ -34,6 +34,8 @@ buildscript {
 
         navigation_version = "2.4.0-alpha04"
 
+        paging_version = "3.1.0"
+
         recyclerview_version = "1.1.0"
         retrofit_version = "2.9.0"
         room_version = "2.3.0"
@@ -45,8 +47,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:7.1.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
     }
 }
@@ -55,7 +57,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        maven { url 'https://jitpack.io' }
     }
 }
 

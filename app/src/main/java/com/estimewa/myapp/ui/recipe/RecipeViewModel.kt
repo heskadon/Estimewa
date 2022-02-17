@@ -8,6 +8,7 @@ import com.estimewa.myapp.core.domain.model.Recipe
 import com.estimewa.myapp.core.domain.usecase.RecipeUseCase
 import com.estimewa.myapp.core.utils.DummyDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,4 +20,8 @@ class RecipeViewModel @Inject constructor(useCase: RecipeUseCase) : ViewModel() 
         value = DummyDataSource.getDummyRecipes()
     }
     val dummy: LiveData<List<Recipe>> = _dummy
+
+    init {
+        Timber.d("init RecipeViewModel")
+    }
 }

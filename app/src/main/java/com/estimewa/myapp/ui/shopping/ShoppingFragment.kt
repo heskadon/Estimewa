@@ -81,6 +81,7 @@ class ShoppingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvShopping.adapter = null
         _binding = null
     }
 

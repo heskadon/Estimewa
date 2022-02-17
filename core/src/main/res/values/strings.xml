@@ -2,4 +2,5 @@
 <resources>
     <string name="image_check">Image check</string>
     <string name="text_add">Add</string>
+    <string name="price_per_unit">Rp%s / %s</string>
 </resources>

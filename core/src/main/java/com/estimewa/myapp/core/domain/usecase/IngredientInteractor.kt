@@ -1,5 +1,6 @@
 package com.estimewa.myapp.core.domain.usecase
 
+import androidx.paging.PagingData
 import com.estimewa.myapp.core.data.Resource
 import com.estimewa.myapp.core.domain.model.Ingredient
 import com.estimewa.myapp.core.domain.repository.IIngredientRepository
@@ -22,5 +23,9 @@ class IngredientInteractor @Inject constructor(private val repository: IIngredie
 
     override fun getIngredientDetail(id: Long): Flow<Ingredient> {
         return repository.getIngredientDetail(id)
+    }
+
+    override fun getPagedIngredients(): Flow<PagingData<Ingredient>> {
+        return repository.getPagedIngredients()
     }
 }
