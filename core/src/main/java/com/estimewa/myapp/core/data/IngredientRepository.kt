@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -52,8 +53,17 @@ class IngredientRepository @Inject constructor(
 
     override fun updateIngredient(ingredient: Ingredient): Flow<Int> {
         val data = IngredientsDataMapper.mapDomainToEntity(ingredient)
+        Timber.d("data updateIngredient : $data")
         return flow {
             emit(localDataSource.updateIngredient(data))
+        }
+    }
+
+    override fun insertOrUpdateIngredient(ingredient: Ingredient): Flow<Long> {
+        val data = IngredientsDataMapper.mapDomainToEntity(ingredient)
+
+        return flow {
+            emit(localDataSource.insertOrUpdateIng(data))
         }
     }
 

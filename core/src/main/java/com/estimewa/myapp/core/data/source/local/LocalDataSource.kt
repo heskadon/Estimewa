@@ -46,6 +46,9 @@ class LocalDataSource @Inject constructor(
         return ingredientsDao.updateIngredient(data)
     }
 
+    suspend fun insertOrUpdateIng(data: IngredientsEntity) : Long =
+        ingredientsDao.insertOrUpdate(data)
+
     fun getRecipeWithIngredients(): Flow<List<RecipeWithIngredient>> = recipeIngredientDao.getRecipeWithIngredients()
 
     fun getAllRecipe(): Flow<List<RecipeEntity>> = recipeDao.getAllRecipe()

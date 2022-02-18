@@ -1,11 +1,11 @@
 package com.estimewa.myapp.ui.ingredients
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.estimewa.myapp.R
 import com.estimewa.myapp.databinding.IngredientDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +20,7 @@ class IngredientDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = IngredientDetailFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,11 +36,34 @@ class IngredientDetailFragment : Fragment() {
 
     private fun observeData(ingredientId: Long?) {
         if (ingredientId != null) {
-            viewModel.getIngredientDetail(ingredientId).observe(viewLifecycleOwner, {
-                with(binding){
-                    tvDummyText.text = it.toString()
+            viewModel.setId(ingredientId)
+
+            viewModel.getIngredientDetail(ingredientId).observe(viewLifecycleOwner) {
+                with(binding) {
+                    tvName.text = it.name
+                    tvPrice.text = it.price
+                    tvAmount.text = it.amount.toString()
+                    tvUnit.text = it.unit
+                    tvSeller.text = it.seller
                 }
-            })
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.ingredient_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_edit -> {
+                startActivity(Intent(activity, EditIngredientActivity::class.java).apply {
+                    putExtra("id", viewModel.ingredientId)
+                })
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

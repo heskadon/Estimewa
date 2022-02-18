@@ -19,7 +19,6 @@
     <string name="text_unit_init_pcs">pcs</string>
     <string name="text_unit_init_amount">1</string>
     <string name="text_ingredient_amount">Amount</string>
-    <string name="seller">Seller</string>
     <string name="title_activity_edit_recipe">EditRecipeActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -36,4 +35,9 @@
     <string name="recipe_name">Recipe Name</string>
     <string name="text_label_amount">Amount</string>
     <string name="text_label_ingredient">Ingredients</string>
+    <string name="ingredient_name">Ingredient Name</string>
+    <string name="price">Price</string>
+    <string name="unit">Unit</string>
+    <string name="seller">Seller</string>
+    <string name="edit">Edit</string>
 </resources>

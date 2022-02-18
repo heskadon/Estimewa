@@ -23,18 +23,30 @@ class IngredientPagingAdapter :
         }
     }
 
+    var onItemClick: ((Ingredient) -> Unit)? = null
+
     inner class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemListIngredientsBinding.bind(view)
         val context: Context = view.context
 
         fun bind(item: Ingredient?) {
-            with(binding){
+            with(binding) {
                 tvIngredientName.text = item?.name
                 tvInitial.text = item?.name?.take(2)
-                tvPricePerUnit.text = view.context.getString(R.string.price_per_unit, item?.price, item?.unit)
+                tvPricePerUnit.text =
+                    view.context.getString(R.string.price_per_unit, item?.price, item?.unit)
             }
         }
 
+        init {
+            binding.root.setOnClickListener {
+                getItem(bindingAdapterPosition)?.let { item ->
+                    onItemClick?.invoke(
+                        item
+                    )
+                }
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {

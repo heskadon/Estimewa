@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.estimewa.myapp.R
 import com.estimewa.myapp.core.data.Resource
 import com.estimewa.myapp.core.ui.IngredientPagingAdapter
 import com.estimewa.myapp.databinding.FragmentIngredientBinding
@@ -82,7 +85,18 @@ class IngredientFragment : Fragment() {
             }
         }*/
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.ingredients.collectLatest(pagedAdapter::submitData)
+            viewModel.ingredients.collectLatest{
+                pagedAdapter.submitData(it)
+            }
+        }
+
+        pagedAdapter.onItemClick = { data ->
+            Timber.d("ingredient : $data")
+            val bundle = bundleOf("id" to data.ingredientId)
+            findNavController().navigate(
+                R.id.action_navigation_ingredient_to_navigation_ingredient_detail,
+                bundle
+            )
         }
     }
 

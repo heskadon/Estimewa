@@ -12,6 +12,7 @@ import timber.log.Timber
 class EditIngredientActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditIngredientBinding
     private val viewModel: EditIngredientViewModel by viewModels()
+    private var _ingredientId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +20,31 @@ class EditIngredientActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initWidget()
+
+        bundleData()
+    }
+
+    private fun bundleData() {
+        _ingredientId = intent.getLongExtra("id",0L)
+        Timber.d("ingredientId extras : $_ingredientId")
+
+        if (_ingredientId != null && _ingredientId != 0L){
+            viewModel.itemDetail(_ingredientId!!).observe(this@EditIngredientActivity){
+                bindToView(it)
+            }
+        }
+    }
+
+    private fun bindToView(it: Ingredient?) {
+        if (it!=null){
+            with(binding){
+                tietIngName.setText(it.name)
+                tietIngPrice.setText(it.price)
+                tietIngredientAmount.setText(it.amount.toString())
+                tietIngUnit.setText(it.unit)
+                tietSeller.setText(it.seller)
+            }
+        }
     }
 
     private fun initWidget() {
@@ -39,26 +65,28 @@ class EditIngredientActivity : AppCompatActivity() {
 
             if (name.isEmpty()) {
                 tietIngName.requestFocus()
-
                 return
             }
+
+            val id = if (_ingredientId!=0L) _ingredientId else null
 
             val data = Ingredient(
                 name = name,
                 price = price,
                 unit = unit,
                 seller = seller,
-                amount = amount.toInt()
+                amount = amount.toInt(),
+                ingredientId = id
             )
 
-            viewModel.saveIngredient(data).observe(this@EditIngredientActivity, {
-                if (it != 0L){
+            viewModel.saveIngredient(data).observe(this@EditIngredientActivity) {
+                if (it != 0L) {
                     Timber.d("saveIngredient = $it")
                     finish()
                 } else {
                     Timber.e("Something wrong")
                 }
-            })
+            }
 
         }
     }

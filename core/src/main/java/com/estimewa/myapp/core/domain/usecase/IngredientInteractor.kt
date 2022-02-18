@@ -28,4 +28,8 @@ class IngredientInteractor @Inject constructor(private val repository: IIngredie
     override fun getPagedIngredients(): Flow<PagingData<Ingredient>> {
         return repository.getPagedIngredients()
     }
+
+    override fun insertOrUpdateIngredient(ingredient: Ingredient): Flow<Long> {
+        return repository.insertOrUpdateIngredient(ingredient)
+    }
 }

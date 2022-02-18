@@ -12,4 +12,5 @@ interface IngredientUseCase {
     fun updateIngredient(ingredient: Ingredient): Flow<Int>
     fun getIngredientDetail(id: Long): Flow<Ingredient>
     fun getPagedIngredients(): Flow<PagingData<Ingredient>>
+    fun insertOrUpdateIngredient(ingredient: Ingredient): Flow<Long>
 }

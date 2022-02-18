@@ -11,5 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class EditIngredientViewModel @Inject constructor(private val useCase: IngredientUseCase) :
     ViewModel() {
-    fun saveIngredient(data: Ingredient): LiveData<Long> = useCase.saveIngredient(data).asLiveData()
+
+    val itemDetail = { id: Long -> useCase.getIngredientDetail(id).asLiveData() }
+
+    fun saveIngredient(data: Ingredient): LiveData<Long> = useCase.insertOrUpdateIngredient(data).asLiveData()
 }

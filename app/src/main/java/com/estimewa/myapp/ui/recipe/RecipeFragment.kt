@@ -65,7 +65,7 @@ class RecipeFragment : Fragment() {
             }
         })*/
 
-        viewModel.recipeList.observe(viewLifecycleOwner, {
+        viewModel.recipeList.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> Timber.d("Resource loading ...")
                 is Resource.Success -> {
@@ -79,7 +79,7 @@ class RecipeFragment : Fragment() {
                     Snackbar.make(binding.root, "Something went wrong", LENGTH_LONG).show()
                 }
             }
-        })
+        }
     }
 
     override fun onDestroyView() {
